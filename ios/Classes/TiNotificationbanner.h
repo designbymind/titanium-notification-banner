@@ -2,8 +2,7 @@
 //  TiNotificationbanner.h
 //  titanium-notification-banner
 //
-//  Created by Your Name
-//  Copyright (c) 2019 Your Company. All rights reserved.
+//  Public umbrella header for the Titanium notification banner module.
 //
 
 #import <UIKit/UIKit.h>
@@ -14,4 +13,6 @@ FOUNDATION_EXPORT double TiNotificationbannerVersionNumber;
 //! Project version string for TiNotificationbanner.
 FOUNDATION_EXPORT const unsigned char TiNotificationbannerVersionString[];
 
-#import "TiNotificationbannerModuleAssets.h"
+// Framework public headers must use framework-style imports so Xcode's
+// module verifier can import this umbrella header as a standalone module.
+#import <TiNotificationbanner/TiNotificationbannerModuleAssets.h>
