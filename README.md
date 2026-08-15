@@ -4,7 +4,7 @@ A lightweight native notification banner for Titanium Mobile on iOS and Android.
 
 ## Requirements
 
-- Titanium 7.0.0+
+- Titanium 12.0.0+
 - iOS implementation uses scene-aware UIKit APIs and is compatible with modern safe-area/status-bar layouts, including iOS 27.
 
 ## Example
@@ -19,7 +19,7 @@ NotificationBanner.show({
   backgroundColor: '#ffffff',
   titleColor: '#000000',
   minimumHeight: 80,
-  onClick() {
+  onClick() => {
     // Handle tap
   }
 });
@@ -52,4 +52,4 @@ MIT
 
 ## Author
 
-Hans Knöchel, Lambus GmbH
+Hans Knöchel, Lambus GmbH & DesignByMind
