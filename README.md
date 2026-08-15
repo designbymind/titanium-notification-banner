@@ -1,10 +1,11 @@
 # Titanium Notification Banner
 
-A notification banner for Titanium that uses full native API's to modally present messages.
+A lightweight native notification banner for Titanium Mobile on iOS and Android.
 
 ## Requirements
 
-- [x] Titanium 7.0.0+
+- Titanium 7.0.0+
+- iOS implementation uses scene-aware UIKit APIs and is compatible with modern safe-area/status-bar layouts, including iOS 27.
 
 ## Example
 
@@ -12,10 +13,15 @@ A notification banner for Titanium that uses full native API's to modally presen
 import NotificationBanner from 'ti.notificationbanner';
 
 NotificationBanner.show({
-  title: 'Titanium rocks!',
-  duration: 2,
-  subtitle: 'It seriously does',
-  backgroundColor: 'green',
+  title: 'Chat Request Sent',
+  subtitle: 'Tap to view',
+  duration: 3,
+  backgroundColor: '#ffffff',
+  titleColor: '#000000',
+  minimumHeight: 80,
+  onClick() {
+    // Handle tap
+  }
 });
 ```
 
@@ -25,10 +31,20 @@ NotificationBanner.show({
 
 ## Properties
 
-- `title` (Required)
-- `subtitle` (Optional)
-- `backgroundColor` (Optional)
-- `duration` (Optional)
+- `title` (Optional) - Banner title.
+- `subtitle` (Optional) - Banner subtitle.
+- `image` (Optional) - Titanium image path displayed at the left of the text.
+- `backgroundColor` (Optional) - Banner background color. Defaults to black.
+- `titleColor` (Optional) - Text and image tint color. Defaults to white.
+- `duration` (Optional) - Automatic dismissal delay in seconds. Omit to keep the banner visible until dismissed by tap/swipe.
+- `minimumHeight` (Optional) - Minimum total banner height in points. Defaults to `80`.
+- `onClick` (Optional) - Callback invoked when the banner is tapped.
+
+## iOS 27
+
+The iOS implementation no longer relies on BRYXBanner's deprecated `UIApplication.statusBarFrame`, `UIApplication.statusBarStyle`, or global-window layout assumptions. It resolves the active `UIWindowScene`, uses the window safe-area inset first, and falls back to `UIStatusBarManager` when necessary.
+
+The original prebuilt BRYXBanner framework remains in the repository for historical/build compatibility, but the Titanium iOS module no longer imports or executes it. The banner implementation is now self-contained in `ios/Classes/TiNotificationbannerModule.swift`.
 
 ## License
 
