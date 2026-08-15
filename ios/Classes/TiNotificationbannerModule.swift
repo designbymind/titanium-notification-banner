@@ -30,11 +30,11 @@ class TiNotificationbannerModule: TiModule {
 
     let title = params["title"] as? String
     let subtitle = params["subtitle"] as? String
-    let duration = params["duration"] as? Double
+    let duration = (params["duration"] as? NSNumber)?.doubleValue
     let image = params["image"] as? String
     let titleColor = params["titleColor"]
     let backgroundColor = params["backgroundColor"]
-    let minimumHeight = TiUtils.floatValue(params["minimumHeight"], def: 80)
+    let minimumHeight = (params["minimumHeight"] as? NSNumber)?.doubleValue ?? 80
     let onClickCallback = params["onClick"] as? KrollCallback
 
     let resolvedImage = TiUtils.toImage(image, proxy: self)
@@ -73,8 +73,6 @@ private final class TiNotificationBannerView: UIView {
   private let imageView = UIImageView()
   private let textStack = UIStackView()
 
-  private var topConstraint: NSLayoutConstraint?
-  private var minimumHeightConstraint: NSLayoutConstraint?
   private var hideWorkItem: DispatchWorkItem?
   private var isDismissing = false
 
@@ -204,14 +202,11 @@ private final class TiNotificationBannerView: UIView {
 
     let safeTop = Self.topSafeAreaInset(for: window)
 
-    topConstraint = topAnchor.constraint(equalTo: window.topAnchor)
-    minimumHeightConstraint = heightAnchor.constraint(greaterThanOrEqualToConstant: configuredMinimumHeight)
-
     NSLayoutConstraint.activate([
       leadingAnchor.constraint(equalTo: window.leadingAnchor),
       trailingAnchor.constraint(equalTo: window.trailingAnchor),
-      topConstraint!,
-      minimumHeightConstraint!,
+      topAnchor.constraint(equalTo: window.topAnchor),
+      heightAnchor.constraint(greaterThanOrEqualToConstant: configuredMinimumHeight),
       contentView.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: safeTop)
     ])
 
